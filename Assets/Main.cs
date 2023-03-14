@@ -51,7 +51,7 @@ public class Main : MonoBehaviour
                     GameObject elect = Instantiate(electron, new Vector3(i, j, k), new Quaternion(0, 0, 0, 0));
                     elect.transform.SetParent(folder);
                     elect.GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
-                    elect.name = Convert.ToString(cube[i, j, k]);
+                    elect.name = Convert.ToString($"el{i * N * N + j * N + k}");
                 }
             }
         }
@@ -63,10 +63,10 @@ public class Main : MonoBehaviour
     {
         N = (int)(L / H) + 1;
 
-        for (int i = 0; i < folder.transform.childCount; i++)
-        {
-            Destroy(folder.transform.GetChild(i).gameObject);
-        }
+        /* for (int i = 0; i < folder.transform.childCount; i++)
+         {
+             Destroy(folder.transform.GetChild(i).gameObject);
+         }*/
 
         for (double time = 0; time < tmax; time += TAU)
         {
@@ -112,16 +112,21 @@ public class Main : MonoBehaviour
             }
         }
 
+        //беру все объекты с тэгом sphereColor
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("sphereColor");
+
         for (int i = 0; i < N; i++)
         {
             for (int j = 0; j < N; j++)
             {
                 for (int k = 0; k < N; k++)
                 {
-                    GameObject elect = Instantiate(electron, new Vector3(i, j, k), new Quaternion(0, 0, 0, 0));
-                    elect.transform.SetParent(folder);
-                    elect.GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
-                    elect.name = Convert.ToString(cube[i, j, k]);
+                    /*GameObject elect = Instantiate(electron, new Vector3(i, j, k), new Quaternion(0, 0, 0, 0));
+                    elect.transform.SetParent(folder);*/
+                    objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
+                    //GameObject elect = folder.GetChild(i * N * N + j * N + k).gameObject;
+                    //elect.GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
+                    //elect.name = Convert.ToString(cube[i, j, k]);
                 }
             }
         }

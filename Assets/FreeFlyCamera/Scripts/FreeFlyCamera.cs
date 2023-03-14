@@ -1,9 +1,4 @@
-﻿//===========================================================================//
-//                       FreeFlyCamera (Version 1.2)                         //
-//                        (c) 2019 Sergey Stafeyev                           //
-//===========================================================================//
-
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
 public class FreeFlyCamera : MonoBehaviour
