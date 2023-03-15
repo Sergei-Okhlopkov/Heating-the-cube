@@ -117,7 +117,33 @@ public class Main : MonoBehaviour
             {
                 for (int k = 0; k < N; k++)
                 {
-                    objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
+                    double min, max;
+
+                    if (cube[i, j, k] <= 35.0)
+                    {
+                        min = 0.0;
+                        max = 35.0;
+                        float normalized = (float)((cube[i, j, k] - min) / (max - min));
+                        objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color(0, 0, 1 - normalized);
+                    }
+
+                    if (cube[i, j, k] > 35.0 && cube[i, j, k] <= 70)
+                    {
+                        min = 35.0;
+                        max = 70.0;
+                        float normalized = (float)((cube[i, j, k] - min) / (max - min));
+                        objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color(normalized, normalized, 0);
+                    }
+
+                    if (cube[i, j, k] > 70.0)
+                    {
+                        min = 70.0;
+                        max = 100.0;
+                        float normalized = (float)((cube[i, j, k] - min) / (max - min));
+                        objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color(normalized, 1 - normalized, 0);
+                    }
+
+                   // objects[i * N * N + j * N + k].GetComponent<MeshRenderer>().material.color = new Color((float)(cube[i, j, k] / 100), 0, 0);
                 }
             }
         }
