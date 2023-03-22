@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Threading.Tasks;
 using UnityEngine.UI;
+using System.Globalization;
 
 public class Main : MonoBehaviour
 {
@@ -81,9 +82,12 @@ public class Main : MonoBehaviour
 
             L = Convert.ToInt32(inputL.text);
             H = Convert.ToDouble(inputH.text);
-            TAU = Convert.ToDouble(inputTAU.text);
-            tmax = Convert.ToDouble(inputTmax.text);
-            ALPHA = Convert.ToDouble(inputALPHA.text);
+            double.TryParse(inputTAU.text, NumberStyles.Number, CultureInfo.InvariantCulture, out TAU);
+            double.TryParse(inputTmax.text, NumberStyles.Number, CultureInfo.InvariantCulture, out tmax);
+            double.TryParse(inputALPHA.text, NumberStyles.Number, CultureInfo.InvariantCulture, out ALPHA);
+            //TAU = double.Parse(inputL.text);
+
+           
 
             Debug.Log("Выполнилось 1 раз");
             N = (int)(L / H) + 1;
@@ -108,7 +112,7 @@ public class Main : MonoBehaviour
 
                 }
 
-            for (int i = 0; i < N; i++)
+          /*  for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < N; j++)
                 {
@@ -120,7 +124,7 @@ public class Main : MonoBehaviour
                         elect.name = Convert.ToString(cube[i, j, k]);
                     }
                 }
-            }
+            }*/
 
             timeStart = Time.time;
 
@@ -220,8 +224,8 @@ public class Main : MonoBehaviour
 
         lastSphere = folder.transform.GetChild(cube.Length - 1).gameObject;
 
-
-        if (Convert.ToDouble(lastSphere.name) > T-1 && !end)
+        double.TryParse(lastSphere.name, NumberStyles.Number, CultureInfo.InvariantCulture, out double temp);
+        if (temp > T-1 && !end)
         {
             timeEnd = Time.time;
             Debug.Log(Math.Round(timeEnd - timeStart, 5));
